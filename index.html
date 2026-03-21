@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>DIA DEL NIÑO SPLASH 2026 | JMMR</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f5f5f3;color:#1a1a18;min-height:100vh}
+:root{--bg:#fff;--bg2:#f5f5f3;--txt:#1a1a18;--txt2:#5f5e5a;--txt3:#888780;--bdr:rgba(0,0,0,.15);--bdr2:rgba(0,0,0,.3);--rm:8px}
+@media(prefers-color-scheme:dark){:root{--bg:#1e1e1c;--bg2:#2c2c2a;--txt:#f0ede8;--txt2:#b4b2a9;--txt3:#888780;--bdr:rgba(255,255,255,.15);--bdr2:rgba(255,255,255,.3)}body{background:#111110}}
+#app{max-width:600px;margin:0 auto}
+.event-title{font-size:18px;font-weight:700;color:var(--txt);text-align:center;letter-spacing:.5px;text-transform:uppercase;padding-top:1.2rem}
+.event-sub{font-size:12px;color:var(--txt3);text-align:center;margin-bottom:1.2rem;margin-top:3px}
+.bus-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;padding:0 1rem 1.5rem}
+.bus-card{background:var(--bg);border:0.5px solid var(--bdr2);border-radius:12px;padding:.9rem;cursor:pointer;transition:transform .12s;display:flex;flex-direction:column;gap:5px;align-items:center;-webkit-tap-highlight-color:transparent}
+.bus-card:active{transform:scale(.97)}
+.bus-grade{font-size:13px;font-weight:500;color:var(--txt);text-align:center}
+.bus-mini-stats{display:flex;justify-content:center;gap:4px;flex-wrap:wrap}
+.mini-badge{font-size:10px;padding:2px 6px;border-radius:6px}
+.badge-a{background:#EAF3DE;color:#3B6D11}.badge-r{background:#E6F1FB;color:#185FA5}.badge-l{background:var(--bg2);color:var(--txt3)}
+.pin-wrap{padding:2rem 1rem;max-width:320px;margin:0 auto}
+.pin-title{font-size:16px;font-weight:500;color:var(--txt);margin-bottom:5px;text-align:center}
+.pin-sub{font-size:13px;color:var(--txt2);text-align:center;margin-bottom:1rem}
+.pin-input{width:100%;font-size:20px;text-align:center;letter-spacing:8px;padding:10px;border:0.5px solid var(--bdr2);border-radius:var(--rm);background:var(--bg);color:var(--txt);outline:none;font-family:monospace}
+.pin-error{font-size:12px;color:#993C1D;text-align:center;margin-top:5px;min-height:18px}
+.pin-btns{display:flex;gap:8px;margin-top:10px;flex-direction:column}
+.btn-green{width:100%;padding:12px;background:#EAF3DE;border:0.5px solid #97C459;color:#3B6D11;border-radius:var(--rm);cursor:pointer;font-size:15px;font-weight:500}
+.btn-blue{width:100%;padding:12px;background:#E6F1FB;border:0.5px solid #85B7EB;color:#185FA5;border-radius:var(--rm);cursor:pointer;font-size:15px;font-weight:500}
+.btn-ghost{width:100%;padding:12px;border:0.5px solid var(--bdr2);border-radius:var(--rm);cursor:pointer;font-size:15px;background:transparent;color:var(--txt2)}
+.bus-header{padding:.6rem 1rem;border-bottom:0.5px solid var(--bdr);display:flex;align-items:center;gap:10px;background:var(--bg)}
+.back-btn{padding:6px 12px;border:0.5px solid var(--bdr2);border-radius:var(--rm);cursor:pointer;font-size:12px;background:transparent;color:var(--txt2);white-space:nowrap;-webkit-tap-highlight-color:transparent}
+.bus-name{font-size:12px;font-weight:500;color:var(--txt);flex:1;text-align:center}
+.sync-bar{font-size:10px;color:var(--txt3);display:flex;align-items:center;gap:5px;justify-content:center;padding:.25rem .75rem}
+.sdot{width:6px;height:6px;border-radius:50%;display:inline-block;flex-shrink:0}
+.sdot.ok{background:#63c563;animation:pulse 2s infinite}
+.sdot.loading{background:#EF9F27;animation:pulse .5s infinite}
+.sdot.error{background:#E24B4A}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stats-row{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;padding:.4rem .75rem}
+.stat-pill{padding:3px 8px;border-radius:6px;font-size:11px;font-weight:500}
+.sp-a{background:#EAF3DE;color:#3B6D11}.sp-r{background:#E6F1FB;color:#185FA5}.sp-l{background:var(--bg2);color:var(--txt3)}
+.bus-body{padding:.6rem .75rem;display:flex;gap:10px;align-items:flex-start}
+.seats-section{flex:1;min-width:0}
+.bus-layout{background:var(--bg2);border-radius:10px;padding:.5rem .4rem}
+.bus-top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ftag{font-size:8px;background:var(--bg);border:0.5px solid var(--bdr2);border-radius:4px;padding:2px 5px;color:var(--txt3)}
+.etag{font-size:8px;color:#185FA5;background:#E6F1FB;border-radius:4px;padding:2px 5px}
+.seat-row{display:grid;grid-template-columns:1fr 1fr 8px 1fr 1fr;gap:3px;margin-bottom:3px;align-items:center}
+.seat{width:100%;border-radius:5px;border:0.5px solid var(--bdr2);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--txt3);background:var(--bg);transition:transform .1s;padding:2px 1px;min-height:30px;text-align:center;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.seat:active{transform:scale(.93)}
+.seat.anticipo{background:#EAF3DE;border-color:#97C459}
+.seat.pagado{background:#E6F1FB;border-color:#85B7EB}
+.seat.readonly{cursor:default}.seat.readonly:active{transform:none}
+.snum{font-size:8px;color:var(--txt3)}
+.sname{font-size:7px;font-weight:700;color:#3B6D11;text-transform:uppercase;line-height:1.15;word-break:break-all;text-align:center}
+.seat.pagado .sname{color:#185FA5}
+.sobs{font-size:6px;font-style:italic;color:#3B6D11;line-height:1.1;text-align:center;word-break:break-all}
+.seat.pagado .sobs{color:#185FA5}
+.exit-mid{font-size:8px;color:#185FA5;margin:2px 0 1px}
+.cafe-bar{margin-top:5px;background:var(--bg);border:0.5px solid var(--bdr);border-radius:4px;padding:2px 6px;text-align:center;font-size:8px;color:var(--txt3)}
+.legend{display:flex;gap:8px;margin-top:7px;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:3px;font-size:10px;color:var(--txt2)}
+.leg-dot{width:8px;height:8px;border-radius:2px}
+.money-row{display:flex;justify-content:space-between;margin-top:6px;flex-wrap:wrap;gap:3px}
+.mi{font-size:10px;color:var(--txt2)}.mv{font-weight:500;color:var(--txt)}
+.ro-notice{font-size:11px;color:#185FA5;background:#E6F1FB;border-radius:6px;padding:4px 10px;text-align:center;margin-top:6px}
+.lov{position:fixed;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;z-index:8888}
+.lbox{background:var(--bg);border-radius:12px;padding:1.5rem 2rem;text-align:center;font-size:14px;color:var(--txt2);min-width:180px}
+.spin{width:28px;height:28px;border:2.5px solid var(--bdr2);border-top-color:#97C459;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:9999}
+.modal{background:var(--bg);border-radius:16px 16px 0 0;border-top:0.5px solid var(--bdr);padding:1.25rem 1.25rem 2.5rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+.mhandle{width:36px;height:4px;background:var(--bdr2);border-radius:2px;margin:0 auto 1rem}
+.modal h3{font-size:16px;font-weight:500;margin-bottom:1rem;color:var(--txt)}
+.field{margin-bottom:12px}
+.field label{font-size:12px;color:var(--txt2);display:block;margin-bottom:4px}
+.field input,.field textarea{width:100%;font-size:16px;padding:10px 12px;border:0.5px solid var(--bdr2);border-radius:10px;background:var(--bg);color:var(--txt);outline:none;font-family:system-ui;-webkit-appearance:none;appearance:none}
+.field textarea{resize:none;height:64px;line-height:1.4}
+.field input:focus,.field textarea:focus{border-color:#97C459}
+.radio-group{display:flex;gap:7px;margin-top:4px}
+.rbtn{flex:1;padding:10px 4px;border:0.5px solid var(--bdr2);border-radius:8px;font-size:14px;cursor:pointer;text-align:center;background:var(--bg);color:var(--txt2);-webkit-tap-highlight-color:transparent}
+.rbtn.a-anticipo{background:#EAF3DE;border-color:#97C459;color:#3B6D11;font-weight:500}
+.rbtn.a-pagado{background:#E6F1FB;border-color:#85B7EB;color:#185FA5;font-weight:500}
+.rbtn.a-libre{background:var(--bg2);color:var(--txt2);font-weight:500}
+.btn-row{display:flex;gap:8px;margin-top:1.2rem}
+.bsave{flex:1;padding:13px;background:#EAF3DE;border:0.5px solid #97C459;color:#3B6D11;border-radius:10px;cursor:pointer;font-size:15px;font-weight:500}
+.bclr{padding:13px 14px;background:var(--bg2);border:0.5px solid var(--bdr);color:var(--txt2);border-radius:10px;cursor:pointer;font-size:14px}
+.bcancel{padding:13px 14px;border:0.5px solid var(--bdr);border-radius:10px;cursor:pointer;font-size:14px;background:transparent;color:var(--txt2)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const MK = '$2a$10$C6s2gOMmGgAEXjzJc1.mHec7tcHGnaAZ7eooifcU2FnDUZtUD2ATa';
+const API = 'https://api.jsonbin.io/v3/b';
+const HR  = {'X-Master-Key': MK, 'X-Bin-Meta': 'false'};
+const HW  = {'X-Master-Key': MK, 'Content-Type': 'application/json'};
+const TOTAL = 46;
+
+const BUSES = [
+  {id:'1g', label:'Primer Grado',  pin:'1111', binId:'69be282db7ec241ddc8aa029'},
+  {id:'2g', label:'Segundo Grado', pin:'2222', binId:'69be282faa77b81da904741b'},
+  {id:'3g', label:'Tercer Grado',  pin:'3333', binId:'69be2830b7ec241ddc8aa035'},
+  {id:'4g', label:'Cuarto Grado',  pin:'4444', binId:'69be2831aa77b81da9047427'},
+  {id:'5g', label:'Quinto Grado',  pin:'5555', binId:'69be2833c3097a1dd545596e'},
+  {id:'6g', label:'Sexto Grado',   pin:'6666', binId:'69be2834aa77b81da9047430'},
+  {id:'ex', label:'Extra',         pin:'0000', binId:'69be2835c3097a1dd545597b'},
+];
+
+let sd = {screen:'menu', activeBus:null, pinInput:'', pinError:'', auth:false, data:{}, sync:'ok'};
+BUSES.forEach(b => sd.data[b.id] = {});
+
+async function fetchBus(id) {
+  setSync('loading');
+  const b = BUSES.find(x=>x.id===id);
+  try {
+    const r = await fetch(API+'/'+b.binId, {headers: HR});
+    const j = await r.json();
+    sd.data[id] = j.seats || {};
+    setSync('ok');
+  } catch(e) { setSync('error'); }
+}
+
+async function pushBus(id) {
+  setSync('loading');
+  const b = BUSES.find(x=>x.id===id);
+  try {
+    await fetch(API+'/'+b.binId, {
+      method: 'PUT',
+      headers: HW,
+      body: JSON.stringify({seats: sd.data[id] || {}})
+    });
+    setSync('ok');
+  } catch(e) { setSync('error'); }
+}
+
+function setSync(s) {
+  sd.sync = s;
+  const dot = document.getElementById('sdot');
+  const lbl = document.getElementById('slbl');
+  if(!dot||!lbl) return;
+  dot.className = 'sdot '+s;
+  lbl.textContent = s==='ok' ? 'Sincronizado en la nube' : s==='loading' ? 'Guardando...' : 'Error de conexión';
+}
+
+function showL(msg) {
+  let el = document.getElementById('lov');
+  if(!el){el=document.createElement('div');el.id='lov';el.className='lov';document.body.appendChild(el);}
+  el.innerHTML = '<div class="lbox"><div class="spin"></div>'+msg+'</div>';
+}
+function hideL() { const e=document.getElementById('lov'); if(e) e.remove(); }
+
+function busStats(id) {
+  const s=sd.data[id]||{}; let a=0,r=0,mA=0,mR=0;
+  for(let i=1;i<=TOTAL;i++){const x=s[i];if(!x)continue;if(x.status==='anticipo'){a++;mA+=Number(x.amount)||0;}else if(x.status==='pagado'){r++;mR+=Number(x.amount)||0;}}
+  return {a,r,libre:TOTAL-a-r,mA,mR};
+}
+
+function bsvg(w,h) {
+  return `<svg viewBox="0 0 80 160" xmlns="http://www.w3.org/2000/svg" style="width:${w}px;height:${h}px;display:block;margin:0 auto">
+    <rect x="4" y="8" width="72" height="144" rx="18" fill="none" stroke="var(--bdr2)" stroke-width="2"/>
+    <rect x="10" y="18" width="24" height="16" rx="3" fill="none" stroke="var(--bdr)" stroke-width="1"/>
+    <rect x="46" y="18" width="24" height="16" rx="3" fill="#E6F1FB" stroke="#B5D4F4" stroke-width="1"/>
+    <text x="58" y="29" text-anchor="middle" font-size="5" fill="#185FA5" font-family="system-ui">FRIG</text>
+    <line x1="40" y1="38" x2="40" y2="130" stroke="var(--bdr)" stroke-width="1" stroke-dasharray="3,3"/>
+    <rect x="4" y="55" width="3" height="14" rx="1" fill="#B5D4F4"/>
+    <rect x="4" y="88" width="3" height="14" rx="1" fill="#B5D4F4"/>
+    <rect x="73" y="88" width="3" height="14" rx="1" fill="#B5D4F4"/>
+    <rect x="10" y="136" width="60" height="12" rx="3" fill="none" stroke="var(--bdr)" stroke-width="1"/>
+    <text x="40" y="145" text-anchor="middle" font-size="5" fill="#888780" font-family="system-ui">CAFETERÍA</text>
+    <circle cx="26" cy="150" r="4" fill="none" stroke="var(--bdr2)" stroke-width="1"/>
+    <circle cx="54" cy="150" r="4" fill="none" stroke="var(--bdr2)" stroke-width="1"/>
+  </svg>`;
+}
+
+function renderMenu() {
+  const cards = BUSES.map(b => {
+    const st = busStats(b.id);
+    return `<div class="bus-card" onclick="selBus('${b.id}')">
+      ${bsvg(55,110)}
+      <div class="bus-grade">${b.label}</div>
+      <div class="bus-mini-stats">
+        <span class="mini-badge badge-a">${st.a} anticipo</span>
+        <span class="mini-badge badge-r">${st.r} pagado</span>
+        <span class="mini-badge badge-l">${st.libre} libre</span>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('app').innerHTML = `
+  <div class="event-title">DIA DEL NIÑO SPLASH 2026 | JMMR</div>
+  <div class="event-sub">Selecciona un autobús</div>
+  <div class="bus-cards">${cards}</div>`;
+}
+
+function renderPin() {
+  const b = BUSES.find(x=>x.id===sd.activeBus);
+  document.getElementById('app').innerHTML = `
+  <div style="padding:2rem 1rem">
+    <div class="pin-wrap">
+      <div class="pin-title">Acceso — ${b.label}</div>
+      <div class="pin-sub">Ingresa el PIN del maestro para editar</div>
+      <input class="pin-input" type="password" inputmode="numeric" maxlength="6" id="pf" placeholder="••••"
+        oninput="sd.pinInput=this.value;document.getElementById('pe').textContent=''"
+        onkeydown="if(event.key==='Enter')doPin()" />
+      <div class="pin-error" id="pe">${sd.pinError}</div>
+      <div class="pin-btns">
+        <button class="btn-green" onclick="doPin()">Entrar</button>
+        <button class="btn-blue" onclick="doView()">Acceso al Público General</button>
+        <button class="btn-ghost" onclick="goMenu()">Cancelar</button>
+      </div>
+    </div>
+  </div>`;
+  setTimeout(()=>{const f=document.getElementById('pf');if(f)f.focus();},50);
+}
+
+function sh(num, ed) {
+  if(!num) return '<div style="min-height:30px"></div>';
+  const s = (sd.data[sd.activeBus]||{})[num];
+  const cls = s ? s.status : '';
+  const ro = ed ? '' : ' readonly';
+  const cl = ed ? `onclick="openM(${num})"` : '';
+  let inner = s && s.name
+    ? `<span class="sname">${s.name.toUpperCase()}</span>${s.obs?'<span class="sobs">'+s.obs.charAt(0).toUpperCase()+s.obs.slice(1)+'</span>':''}`
+    : `<span class="snum">${num}</span>`;
+  return `<div class="seat ${cls}${ro}" ${cl}>${inner}</div>`;
+}
+
+function renderBus(ed) {
+  const b = BUSES.find(x=>x.id===sd.activeBus);
+  const st = busStats(sd.activeBus);
+  let rows = '';
+  for(let r=0;r<11;r++){
+    const l1=r*4+1,l2=r*4+2,r1=r*4+3,r2=r*4+4;
+    if(l1>44) break;
+    if(r===3) rows+=`<div class="exit-mid">← salida izquierda</div>`;
+    if(r===6) rows+=`<div class="exit-mid" style="text-align:right">salida derecha →</div>`;
+    rows+=`<div class="seat-row">${sh(l1,ed)}${sh(l2,ed)}<div style="width:8px"></div>${sh(r1,ed)}${sh(r2,ed)}</div>`;
+  }
+  rows+=`<div class="seat-row">${sh(45,ed)}${sh(46,ed)}<div style="width:8px"></div><div style="min-height:30px"></div><div style="min-height:30px"></div></div>`;
+  document.getElementById('app').innerHTML = `
+  <div>
+    <div class="bus-header">
+      <button class="back-btn" onclick="goMenu()">← Menú</button>
+      <div class="bus-name">DIA DEL NIÑO SPLASH 2026 — ${b.label}</div>
+    </div>
+    <div class="sync-bar"><span class="sdot ok" id="sdot"></span><span id="slbl">Sincronizado en la nube</span></div>
+    <div class="stats-row">
+      <span class="stat-pill sp-a">${st.a} anticipo</span>
+      <span class="stat-pill sp-r">${st.r} pagado</span>
+      <span class="stat-pill sp-l">${st.libre} libre</span>
+    </div>
+    <div class="bus-body">
+      <div style="flex-shrink:0">${bsvg(70,145)}</div>
+      <div class="seats-section">
+        <div class="bus-layout">
+          <div class="bus-top-row"><span class="etag">← acceso</span><span class="ftag">FRIGOBAR</span></div>
+          ${rows}
+          <div class="cafe-bar">CAFETERÍA</div>
+        </div>
+        ${!ed?'<div class="ro-notice">Modo solo lectura</div>':''}
+        <div class="legend">
+          <div class="leg"><div class="leg-dot" style="background:#97C459"></div>Anticipo</div>
+          <div class="leg"><div class="leg-dot" style="background:#85B7EB"></div>Pagado</div>
+          <div class="leg"><div class="leg-dot" style="background:var(--bdr2)"></div>Libre</div>
+        </div>
+        <div class="money-row">
+          <div class="mi">Anticipo cobrado: <span class="mv">$${st.mA.toLocaleString()}</span></div>
+          <div class="mi">Total pagado: <span class="mv" style="color:#185FA5">$${st.mR.toLocaleString()}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function openM(num) {
+  const s=(sd.data[sd.activeBus]||{})[num]||{name:'',amount:'',obs:'',status:'libre'};
+  window._ms=s.status||'libre';
+  const esc=v=>(v||'').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+  const ov=document.createElement('div');ov.className='modal-overlay';ov.id='mov';
+  ov.innerHTML=`<div class="modal" onclick="event.stopPropagation()">
+    <div class="mhandle"></div>
+    <h3>Asiento ${num}</h3>
+    <div class="field"><label>Nombre del pasajero</label>
+      <input id="mn" type="text" autocomplete="off" value="${esc(s.name)}" placeholder="Nombre completo"/></div>
+    <div class="field"><label>Observaciones</label>
+      <textarea id="mo" placeholder="Notas, alergias, detalles...">${esc(s.obs)}</textarea></div>
+    <div class="field"><label>Monto ($)</label>
+      <input id="ma" type="number" inputmode="decimal" value="${s.amount||''}" placeholder="0" min="0"/></div>
+    <div class="field"><label>Estado de pago</label>
+      <div class="radio-group">
+        <div class="rbtn ${s.status==='anticipo'?'a-anticipo':''}" onclick="setMS('anticipo',this)">Anticipo</div>
+        <div class="rbtn ${s.status==='pagado'?'a-pagado':''}" onclick="setMS('pagado',this)">Pagado</div>
+        <div class="rbtn ${s.status==='libre'?'a-libre':''}" onclick="setMS('libre',this)">Libre</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="bsave" onclick="saveM(${num})">Guardar</button>
+      <button class="bclr" onclick="clearS(${num})">Limpiar</button>
+      <button class="bcancel" onclick="closeM()">Cancelar</button>
+    </div>
+  </div>`;
+  ov.addEventListener('click',closeM);
+  document.body.appendChild(ov);
+  setTimeout(()=>{const f=document.getElementById('mn');if(f)f.focus();},80);
+}
+
+function render() {
+  if(sd.screen==='menu') renderMenu();
+  else if(sd.screen==='pin') renderPin();
+  else if(sd.screen==='bus') renderBus(sd.auth);
+}
+
+function startPolling() {
+  clearInterval(window._pt);
+  window._pt = setInterval(async () => {
+    if(sd.screen!=='bus') return;
+    if(document.getElementById('mov')) return;
+    const id = sd.activeBus;
+    await fetchBus(id);
+    if(sd.screen==='bus' && sd.activeBus===id) renderBus(sd.auth);
+  }, 15000);
+}
+
+window.selBus = function(id){ sd.activeBus=id;sd.pinInput='';sd.pinError='';sd.auth=false;sd.screen='pin';render(); }
+window.goMenu = function(){ clearInterval(window._pt);sd.screen='menu';sd.auth=false;sd.activeBus=null;render(); }
+window.doView = async function(){ showL('Cargando asientos...');await fetchBus(sd.activeBus);hideL();sd.auth=false;sd.screen='bus';render();startPolling(); }
+window.doPin  = async function(){
+  const b=BUSES.find(x=>x.id===sd.activeBus);
+  if(sd.pinInput===b.pin){ showL('Cargando asientos...');await fetchBus(sd.activeBus);hideL();sd.auth=true;sd.screen='bus';render();startPolling(); }
+  else{ document.getElementById('pe').textContent='PIN incorrecto. Intenta de nuevo.'; }
+}
+window.setMS  = function(v,el){ window._ms=v;document.querySelectorAll('.rbtn').forEach(b=>b.className='rbtn');el.className='rbtn a-'+v; }
+window.saveM  = async function(num){
+  const name=document.getElementById('mn').value.trim();
+  const obs=document.getElementById('mo').value.trim();
+  const amount=parseFloat(document.getElementById('ma').value)||0;
+  const status=window._ms||'libre';
+  if(!sd.data[sd.activeBus]) sd.data[sd.activeBus]={};
+  if(status==='libre') delete sd.data[sd.activeBus][num];
+  else sd.data[sd.activeBus][num]={name,obs,amount,status};
+  closeM(); renderBus(true); await pushBus(sd.activeBus);
+}
+window.clearS = async function(num){
+  if(sd.data[sd.activeBus]) delete sd.data[sd.activeBus][num];
+  closeM(); renderBus(true); await pushBus(sd.activeBus);
+}
+window.closeM = function(){ const o=document.getElementById('mov');if(o)o.remove(); }
+
+async function init() {
+  showL('Conectando con la nube...');
+  await Promise.all(BUSES.map(b => fetchBus(b.id)));
+  hideL();
+  render();
+}
+
+init();
+</script>
+</body>
+</html>
