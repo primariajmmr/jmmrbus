@@ -1,53 +1,49 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
-<title>DIA DEL NIÑO SPLASH 2026 | JMMR</title>
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#f9f9f7;color:#1a1a18}
-:root{
-  --green:#80c14b;--green-dark:#5a8a30;--green-light:#e8f5d8;
-  --red:#660812;
-  --bg:#fff;--bg2:#f5f5f3;
-  --txt:#1a1a18;--txt2:#5f5e5a;--txt3:#888780;
-  --bdr:rgba(0,0,0,.12);--bdr2:rgba(0,0,0,.25);--rm:8px
-}
-@media(prefers-color-scheme:dark){
-  :root{--bg:#1e1e1c;--bg2:#2c2c2a;--txt:#f0ede8;--txt2:#b4b2a9;--txt3:#888780;--bdr:rgba(255,255,255,.12);--bdr2:rgba(255,255,255,.25)}
-  body{background:#111110}
-}
+:root{--green:#80c14b;--green-dark:#5a8a30;--green-light:#e8f5d8;--red:#660812;--bg:#fff;--bg2:#f5f5f3;--txt:#1a1a18;--txt2:#5f5e5a;--txt3:#888780;--bdr:rgba(0,0,0,.12);--bdr2:rgba(0,0,0,.25);--rm:8px}
 #app{max-width:600px;margin:0 auto}
-.ev-banner{background:var(--red);padding:1rem 1rem .7rem;text-align:center}
-.ev-title{font-size:17px;font-weight:700;color:#fff;letter-spacing:.8px;text-transform:uppercase}
-.ev-sub{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+
+/* BANNER */
+.ev-banner{background:var(--red);padding:.85rem 1rem;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ev-title{font-size:16px;font-weight:700;color:#fff;letter-spacing:.3px;text-transform:uppercase;line-height:1.2}
+.ev-sub{font-size:10px;color:rgba(255,255,255,.7);margin-top:2px}
+.btn-config{padding:6px 12px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);border-radius:20px;cursor:pointer;font-size:12px;font-weight:600;color:#fff;-webkit-tap-highlight-color:transparent;white-space:nowrap}
+.btn-config:active{background:rgba(255,255,255,.35)}
+
+/* MENU */
 .menu-body{padding:1rem;background:var(--bg)}
 .section-label{font-size:11px;font-weight:600;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
-.bus-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
-.bus-card{background:var(--bg);border:2px solid var(--green);border-radius:14px;padding:1rem .8rem;cursor:pointer;transition:transform .12s,background .12s;display:flex;flex-direction:column;gap:6px;align-items:center;-webkit-tap-highlight-color:transparent}
-.bus-card:active{transform:scale(.96);background:var(--green-light)}
-.bus-icon-wrap{width:60px;height:60px;border-radius:12px;background:var(--green-light);display:flex;align-items:center;justify-content:center}
+.bus-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.bus-card{background:var(--bg);border:2px solid var(--green);border-radius:14px;padding:.9rem .8rem;cursor:pointer;transition:transform .12s,background .12s;display:flex;flex-direction:column;gap:5px;align-items:center;-webkit-tap-highlight-color:transparent}
+.bus-card:active{transform:scale(.97);background:var(--green-light)}
+.bus-icon-wrap{width:56px;height:56px;border-radius:12px;background:var(--green-light);display:flex;align-items:center;justify-content:center}
 .bus-grade{font-size:13px;font-weight:700;color:var(--green-dark);text-align:center}
 .bus-mini-stats{display:flex;justify-content:center;gap:4px;flex-wrap:wrap}
-.mini-badge{font-size:10px;padding:2px 7px;border-radius:6px;font-weight:500}
+.mini-badge{font-size:10px;padding:2px 6px;border-radius:6px;font-weight:500}
 .badge-a{background:var(--green-light);color:var(--green-dark)}
 .badge-r{background:#E6F1FB;color:#185FA5}
 .badge-l{background:var(--bg2);color:var(--txt3)}
+
+/* PIN */
 .pin-wrap{padding:2rem 1rem;max-width:320px;margin:0 auto}
 .pin-title{font-size:16px;font-weight:600;color:var(--txt);margin-bottom:5px;text-align:center}
 .pin-sub{font-size:13px;color:var(--txt2);text-align:center;margin-bottom:1rem}
-.pin-input{width:100%;font-size:22px;text-align:center;letter-spacing:10px;padding:12px;border:1.5px solid var(--bdr2);border-radius:var(--rm);background:var(--bg);color:var(--txt);outline:none;font-family:monospace}
+.pin-input{width:100%;font-size:20px;text-align:center;letter-spacing:8px;padding:10px;border:1.5px solid var(--bdr2);border-radius:var(--rm);background:var(--bg);color:var(--txt);outline:none;font-family:monospace}
 .pin-input:focus{border-color:var(--green)}
 .pin-error{font-size:12px;color:var(--red);text-align:center;margin-top:5px;min-height:18px}
 .pin-btns{display:flex;gap:8px;margin-top:12px;flex-direction:column}
-.btn-green{width:100%;padding:13px;background:var(--green);border:none;color:#fff;border-radius:var(--rm);cursor:pointer;font-size:15px;font-weight:600}
-.btn-red{width:100%;padding:13px;background:var(--red);border:none;color:#fff;border-radius:var(--rm);cursor:pointer;font-size:15px;font-weight:600}
-.btn-ghost{width:100%;padding:13px;border:1.5px solid var(--bdr2);border-radius:var(--rm);cursor:pointer;font-size:15px;background:transparent;color:var(--txt2)}
+.btn-green{width:100%;padding:12px;background:var(--green);border:none;color:#fff;border-radius:var(--rm);cursor:pointer;font-size:15px;font-weight:600}
+.btn-red-full{width:100%;padding:12px;background:var(--red);border:none;color:#fff;border-radius:var(--rm);cursor:pointer;font-size:15px;font-weight:600}
+.btn-ghost{width:100%;padding:12px;border:1.5px solid var(--bdr2);border-radius:var(--rm);cursor:pointer;font-size:15px;background:transparent;color:var(--txt2)}
+
+/* BUS VIEW */
 .bus-header{padding:.7rem 1rem;border-bottom:3px solid var(--green);display:flex;align-items:center;gap:10px;background:var(--red)}
 .back-btn{padding:6px 14px;border:none;border-radius:var(--rm);cursor:pointer;font-size:13px;font-weight:700;background:var(--green);color:#fff;white-space:nowrap;-webkit-tap-highlight-color:transparent;transition:background .15s}
-.back-btn:active{background:var(--red);color:#fff;outline:2px solid #fff}
-.bus-name{font-size:12px;font-weight:600;color:#fff;flex:1;text-align:center}
+.back-btn:active{background:var(--red);outline:2px solid #fff}
+.bus-name-hdr{font-size:12px;font-weight:600;color:#fff;flex:1;text-align:center}
+.list-btn{padding:6px 12px;border-radius:var(--rm);cursor:pointer;font-size:11px;font-weight:700;background:rgba(255,255,255,.2);color:#fff;white-space:nowrap;-webkit-tap-highlight-color:transparent;border:1.5px solid rgba(255,255,255,.4)}
 .sync-bar{font-size:10px;color:var(--txt3);display:flex;align-items:center;gap:5px;justify-content:center;padding:.3rem .75rem;background:var(--bg2)}
 .sdot{width:6px;height:6px;border-radius:50%;display:inline-block;flex-shrink:0}
 .sdot.ok{background:#63c563;animation:pulse 2s infinite}
@@ -55,14 +51,13 @@ body{font-family:system-ui,sans-serif;background:#f9f9f7;color:#1a1a18}
 .sdot.error{background:#E24B4A}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes spin{to{transform:rotate(360deg)}}
-.stats-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:.5rem .75rem;background:var(--bg);border-bottom:0.5px solid var(--bdr)}
+.stats-row{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;padding:.4rem .75rem;background:var(--bg);border-bottom:0.5px solid var(--bdr)}
 .stat-pill{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}
 .sp-a{background:var(--green-light);color:var(--green-dark)}
 .sp-r{background:#E6F1FB;color:#185FA5}
 .sp-l{background:var(--bg2);color:var(--txt3)}
 .bus-body{padding:.75rem}
-.seats-section{width:100%}
-.bus-layout{background:#f0f0ee;border-radius:12px;padding:.6rem .5rem;border:1.5px solid var(--bdr2)}
+.bus-layout{background:var(--bg2);border-radius:12px;padding:.6rem .5rem;border:1.5px solid var(--bdr2)}
 .driver-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;padding-bottom:5px;border-bottom:1px dashed var(--bdr2)}
 .driver-seat{width:38px;height:38px;border-radius:8px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .driver-label{font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase}
@@ -71,146 +66,372 @@ body{font-family:system-ui,sans-serif;background:#f9f9f7;color:#1a1a18}
 .access-row{display:grid;grid-template-columns:1fr 1fr 10px 1fr 1fr;gap:4px;margin-bottom:3px}
 .access-cell{font-size:9px;color:#fff;background:var(--green);border-radius:5px;padding:4px 2px;font-weight:700;text-align:center}
 .access-empty{min-height:4px}
-.seat{width:100%;border-radius:6px;border:1.5px solid var(--bdr2);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--txt3);background:var(--bg);transition:transform .1s;padding:3px 2px;min-height:36px;text-align:center;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.seat{width:100%;border-radius:6px;border:1.5px solid var(--bdr2);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);transition:transform .1s;padding:2px 1px;min-height:40px;text-align:center;overflow:hidden;-webkit-tap-highlight-color:transparent;position:relative}
 .seat:active{transform:scale(.91)}
 .seat.anticipo{background:var(--green-light);border-color:var(--green)}
 .seat.pagado{background:#E6F1FB;border-color:#85B7EB}
 .seat.readonly{cursor:default}.seat.readonly:active{transform:none}
-.snum{font-size:9px;color:var(--txt3);font-weight:500}
-.sname{font-size:8px;font-weight:700;color:var(--green-dark);text-transform:uppercase;line-height:1.2;word-break:break-all;text-align:center;padding:0 1px}
+.seat-corner-num{position:absolute;top:2px;left:3px;font-size:7px;font-weight:700;color:var(--txt3);line-height:1;opacity:.7}
+.seat.anticipo .seat-corner-num{color:var(--green-dark)}
+.seat.pagado .seat-corner-num{color:#185FA5}
+.seat-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;padding:0 2px;margin-top:4px}
+.sname{font-size:7.5px;font-weight:700;color:var(--green-dark);text-transform:uppercase;line-height:1.2;word-break:break-all;text-align:center}
 .seat.pagado .sname{color:#185FA5}
-.sobs{font-size:7px;font-style:italic;color:var(--green-dark);line-height:1.1;text-align:center;word-break:break-all}
+.sobs{font-size:6px;font-style:italic;color:var(--green-dark);line-height:1.1;text-align:center;word-break:break-all}
 .seat.pagado .sobs{color:#185FA5}
+.seat-num-empty{font-size:11px;font-weight:600;color:var(--txt3)}
 .exit-mid{font-size:8px;color:var(--green-dark);margin:2px 0 1px;font-weight:600}
-.wc-bar{margin-top:6px;background:var(--bg);border:1px solid var(--bdr2);border-radius:5px;padding:4px 8px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:9px;color:var(--txt2);font-weight:600;letter-spacing:.5px}
+.wc-bar{margin-top:6px;background:var(--bg);border:1px solid var(--bdr2);border-radius:5px;padding:4px 8px;display:flex;align-items:center;justify-content:center;gap:5px;font-size:9px;color:var(--txt2);font-weight:600}
 .legend{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
 .leg{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--txt2)}
 .leg-dot{width:10px;height:10px;border-radius:3px}
 .money-row{display:flex;justify-content:space-between;margin-top:8px;flex-wrap:wrap;gap:4px;padding:6px 8px;background:var(--bg2);border-radius:8px}
 .mi{font-size:11px;color:var(--txt2)}.mv{font-weight:700;color:var(--txt)}
 .ro-notice{font-size:11px;color:#185FA5;background:#E6F1FB;border-radius:6px;padding:5px 10px;text-align:center;margin-top:6px}
-.lov{position:fixed;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;z-index:8888}
-.lbox{background:var(--bg);border-radius:12px;padding:1.5rem 2rem;text-align:center;font-size:14px;color:var(--txt2);min-width:180px}
-.spin{width:28px;height:28px;border:2.5px solid var(--bdr2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px}
+
+/* CONFIGURACIÓN */
+.config-wrap{padding:1rem;background:var(--bg)}
+.config-section{margin-bottom:1.5rem}
+.config-section-title{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid var(--bdr2)}
+.config-field{margin-bottom:10px}
+.config-field label{font-size:12px;color:var(--txt2);display:block;margin-bottom:4px;font-weight:500}
+.config-field input{width:100%;font-size:15px;padding:10px 12px;border:1.5px solid var(--bdr2);border-radius:10px;background:var(--bg);color:var(--txt);outline:none;font-family:system-ui}
+.config-field input:focus{border-color:var(--green)}
+.bus-config-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg2);border-radius:10px;margin-bottom:6px}
+.bus-config-num{font-size:11px;font-weight:700;color:var(--txt3);min-width:20px}
+.bus-config-input{flex:1;font-size:14px;padding:7px 10px;border:1.5px solid var(--bdr2);border-radius:8px;background:var(--bg);color:var(--txt);outline:none;font-family:system-ui}
+.bus-config-input:focus{border-color:var(--green)}
+.bus-config-pin{width:70px;font-size:13px;padding:7px 8px;border:1.5px solid var(--bdr2);border-radius:8px;background:var(--bg);color:var(--txt);outline:none;font-family:monospace;text-align:center}
+.btn-remove-bus{width:32px;height:32px;border:1.5px solid #e53935;border-radius:8px;background:var(--bg);color:#e53935;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+.btn-remove-bus:active{background:#fdecea}
+.btn-add-bus{width:100%;padding:10px;border:2px dashed var(--green);border-radius:10px;background:transparent;color:var(--green-dark);cursor:pointer;font-size:14px;font-weight:600;-webkit-tap-highlight-color:transparent;margin-top:4px}
+.btn-add-bus:active{background:var(--green-light)}
+.config-pin-hint{font-size:11px;color:var(--txt3);margin-top:-4px;margin-bottom:8px}
+.btn-save-config{width:100%;padding:13px;background:var(--red);border:none;color:#fff;border-radius:10px;cursor:pointer;font-size:15px;font-weight:700;margin-top:8px}
+.btn-cancel-config{width:100%;padding:12px;border:1.5px solid var(--bdr2);border-radius:10px;cursor:pointer;font-size:14px;background:transparent;color:var(--txt2);margin-top:8px}
+.config-warning{background:#fff3e0;border:1.5px solid #f57c00;border-radius:8px;padding:10px 12px;font-size:12px;color:#e65100;margin-bottom:12px;line-height:1.5}
+
+/* MODAL ASIENTO */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center;z-index:9999}
-.modal{background:var(--bg);border-radius:20px 20px 0 0;border-top:3px solid var(--green);padding:1.25rem 1.25rem 2.5rem;width:100%;max-width:480px;max-height:92vh;overflow-y:auto}
+.modal{background:var(--bg);border-radius:20px 20px 0 0;border-top:3px solid var(--green);padding:1.25rem 1.25rem 2.5rem;width:100%;max-width:500px;max-height:92vh;overflow-y:auto}
 .mhandle{width:40px;height:4px;background:var(--bdr2);border-radius:2px;margin:0 auto 1rem}
 .modal h3{font-size:16px;font-weight:600;margin-bottom:1rem;color:var(--txt)}
-.field{margin-bottom:12px}
+.field{margin-bottom:12px;position:relative}
 .field label{font-size:12px;color:var(--txt2);display:block;margin-bottom:4px;font-weight:500}
-.field input,.field textarea{width:100%;font-size:16px;padding:11px 13px;border:1.5px solid var(--bdr2);border-radius:10px;background:var(--bg);color:var(--txt);outline:none;font-family:system-ui;-webkit-appearance:none;appearance:none}
-.field textarea{resize:none;height:64px;line-height:1.4}
+.field input,.field textarea{width:100%;font-size:16px;padding:10px 12px;border:1.5px solid var(--bdr2);border-radius:10px;background:var(--bg);color:var(--txt);outline:none;font-family:system-ui;-webkit-appearance:none;appearance:none}
+.field textarea{resize:none;height:60px;line-height:1.4}
 .field input:focus,.field textarea:focus{border-color:var(--green)}
+.autocomplete-box{position:absolute;top:100%;left:0;right:0;background:var(--bg);border:1.5px solid var(--green);border-radius:10px;z-index:100;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.autocomplete-item{padding:10px 14px;cursor:pointer;border-bottom:0.5px solid var(--bdr);-webkit-tap-highlight-color:transparent}
+.autocomplete-item:last-child{border-bottom:none}
+.autocomplete-item:active{background:var(--green-light)}
+.autocomplete-name{font-size:14px;font-weight:600;color:var(--txt)}
+.autocomplete-info{font-size:11px;color:var(--txt3);margin-top:2px}
+.existing-banner{background:var(--green-light);border:1.5px solid var(--green);border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.existing-text{flex:1;font-size:12px;color:var(--green-dark);line-height:1.5}
+.existing-text strong{font-size:13px;display:block;margin-bottom:2px}
+.btn-copy{padding:7px 12px;background:var(--green);border:none;color:#fff;border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;flex-shrink:0}
+.multi-section{background:var(--bg2);border-radius:10px;padding:10px 12px;margin-top:4px}
+.seats-picker{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.sp-seat{padding:5px 2px;border-radius:5px;border:1.5px solid var(--bdr2);font-size:11px;font-weight:600;text-align:center;cursor:pointer;color:var(--txt2);background:var(--bg);-webkit-tap-highlight-color:transparent}
+.sp-seat.taken{background:var(--bg2);color:var(--txt3);cursor:not-allowed;opacity:.45;border-style:dashed}
+.sp-seat.current{background:var(--red);border-color:var(--red);color:#fff}
+.sp-seat.xsel{background:var(--green);border-color:var(--green);color:#fff}
+.multi-hint{font-size:11px;color:var(--green-dark);margin-top:6px;font-weight:500}
 .radio-group{display:flex;gap:7px;margin-top:4px}
-.rbtn{flex:1;padding:11px 4px;border:1.5px solid var(--bdr2);border-radius:8px;font-size:14px;cursor:pointer;text-align:center;background:var(--bg);color:var(--txt2);-webkit-tap-highlight-color:transparent;font-weight:500}
+.rbtn{flex:1;padding:10px 4px;border:1.5px solid var(--bdr2);border-radius:8px;font-size:14px;cursor:pointer;text-align:center;background:var(--bg);color:var(--txt2);-webkit-tap-highlight-color:transparent;font-weight:500}
 .rbtn.a-anticipo{background:var(--green-light);border-color:var(--green);color:var(--green-dark);font-weight:600}
 .rbtn.a-pagado{background:#E6F1FB;border-color:#85B7EB;color:#185FA5;font-weight:600}
 .rbtn.a-libre{background:var(--bg2);color:var(--txt2);font-weight:600}
 .btn-row{display:flex;gap:8px;margin-top:1.2rem}
-.bsave{flex:1;padding:13px;background:var(--green);border:none;color:#fff;border-radius:10px;cursor:pointer;font-size:15px;font-weight:600}
+.bsave{flex:1;padding:13px;background:var(--green);border:none;color:#fff;border-radius:10px;cursor:pointer;font-size:14px;font-weight:600}
 .bclr{padding:13px 14px;background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt2);border-radius:10px;cursor:pointer;font-size:14px}
 .bcancel{padding:13px 14px;border:1.5px solid var(--bdr);border-radius:10px;cursor:pointer;font-size:14px;background:transparent;color:var(--txt2)}
-</style>
-</head>
-<body>
-<div id="app"></div>
-<script>
-const MK='$2a$10$C6s2gOMmGgAEXjzJc1.mHec7tcHGnaAZ7eooifcU2FnDUZtUD2ATa';
-const API='https://api.jsonbin.io/v3/b';
-const HR={'X-Master-Key':MK,'X-Bin-Meta':'false'};
-const HW={'X-Master-Key':MK,'Content-Type':'application/json'};
-const TOTAL=46;
-const BUSES=[
-  {id:'1g',label:'Primer Grado',  pin:'1111',binId:'69be282db7ec241ddc8aa029'},
-  {id:'2g',label:'Segundo Grado', pin:'2222',binId:'69be282faa77b81da904741b'},
-  {id:'3g',label:'Tercer Grado',  pin:'3333',binId:'69be2830b7ec241ddc8aa035'},
-  {id:'4g',label:'Cuarto Grado',  pin:'4444',binId:'69be2831aa77b81da9047427'},
-  {id:'5g',label:'Quinto Grado',  pin:'5555',binId:'69be2833c3097a1dd545596e'},
-  {id:'6g',label:'Sexto Grado',   pin:'6666',binId:'69be2834aa77b81da9047430'},
-  {id:'ex',label:'Extra',         pin:'0000',binId:'69be2835c3097a1dd545597b'},
-];
-let sd={screen:'menu',activeBus:null,pinInput:'',pinError:'',auth:false,data:{},sync:'ok'};
-BUSES.forEach(b=>sd.data[b.id]={});
 
-async function fetchBus(id){setSync('loading');const b=BUSES.find(x=>x.id===id);try{const r=await fetch(API+'/'+b.binId,{headers:HR});const j=await r.json();sd.data[id]=j.seats||{};setSync('ok');}catch(e){setSync('error');}}
-async function pushBus(id){setSync('loading');const b=BUSES.find(x=>x.id===id);try{await fetch(API+'/'+b.binId,{method:'PUT',headers:HW,body:JSON.stringify({seats:sd.data[id]||{}})});setSync('ok');}catch(e){setSync('error');}}
-function setSync(s){sd.sync=s;const dot=document.getElementById('sdot'),lbl=document.getElementById('slbl');if(!dot||!lbl)return;dot.className='sdot '+s;lbl.textContent=s==='ok'?'Sincronizado en la nube':s==='loading'?'Guardando...':'Error de conexión';}
+/* LISTADO */
+.list-wrap{padding:1rem}
+.list-title{font-size:16px;font-weight:600;color:var(--txt)}
+.list-sub{font-size:12px;color:var(--txt3);margin-top:2px;margin-bottom:1rem}
+.passenger-row{display:flex;align-items:baseline;gap:8px;padding:10px 0;border-bottom:0.5px solid var(--bdr)}
+.passenger-num{font-size:11px;font-weight:700;color:var(--txt3);min-width:22px}
+.passenger-name{font-size:14px;font-weight:600;color:var(--txt);min-width:150px;flex-shrink:0}
+.passenger-line{flex:1;border-bottom:1px solid #999;min-width:60px;height:18px}
+.passenger-asientos{font-size:10px;color:var(--txt3);min-width:70px;text-align:right}
+.list-empty{text-align:center;padding:3rem 1rem;color:var(--txt3);font-size:14px}
+.lov{position:fixed;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;z-index:8888}
+.lbox{background:var(--bg);border-radius:12px;padding:1.5rem 2rem;text-align:center;font-size:14px;color:var(--txt2);min-width:180px}
+.spin{width:28px;height:28px;border:2.5px solid var(--bdr2);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px}
+@media print{.bus-header,.back-btn,.list-btn,.ev-banner{display:none!important}.list-wrap{padding:0}}
+</style>
+
+<div id="app"></div>
+
+<script>
+const TOTAL=46;
+const STORE_KEY='excursion_config_v1';
+
+// Config por defecto
+let config={
+  titulo:'DIA DEL NIÑO SPLASH 2026',
+  subtitulo:'JMMR',
+  buses:[
+    {id:'b1',label:'Primer Grado',  pin:'1111'},
+    {id:'b2',label:'Segundo Grado', pin:'2222'},
+    {id:'b3',label:'Tercer Grado',  pin:'3333'},
+    {id:'b4',label:'Cuarto Grado',  pin:'4444'},
+    {id:'b5',label:'Quinto Grado',  pin:'5555'},
+    {id:'b6',label:'Sexto Grado',   pin:'6666'},
+    {id:'b7',label:'Extra',         pin:'0000'},
+  ]
+};
+
+let data={};
+let sd={screen:'menu',activeBus:null,pinInput:'',pinError:'',auth:false,sync:'ok'};
+let mNum=null,mExtra=[],mStatus='libre';
+
+// Config editable en pantalla
+let cfgEdit=null;
+
+/* ── Storage ── */
+async function loadConfig(){
+  try{const r=await window.storage.get(STORE_KEY,true);if(r&&r.value){const saved=JSON.parse(r.value);config=saved.config||config;data=saved.data||{};}}catch(e){}
+}
+async function saveAll(){
+  try{await window.storage.set(STORE_KEY,JSON.stringify({config,data}),true);}catch(e){}
+}
+
+/* ── Stats ── */
+function busStats(id){
+  const s=data[id]||{};let a=0,r=0,mA=0,mR=0;
+  for(let i=1;i<=TOTAL;i++){const x=s[i];if(!x)continue;if(x.status==='anticipo'){a++;mA+=Number(x.amount)||0;}else if(x.status==='pagado'){r++;mR+=Number(x.amount)||0;}}
+  return{a,r,libre:TOTAL-a-r,mA,mR};
+}
+function setSync(s){sd.sync=s;const d=document.getElementById('sdot'),l=document.getElementById('slbl');if(!d||!l)return;d.className='sdot '+s;l.textContent=s==='ok'?'Guardado en la nube':s==='loading'?'Guardando...':'Error al guardar';}
 function showL(msg){let el=document.getElementById('lov');if(!el){el=document.createElement('div');el.id='lov';el.className='lov';document.body.appendChild(el);}el.innerHTML='<div class="lbox"><div class="spin"></div>'+msg+'</div>';}
 function hideL(){const e=document.getElementById('lov');if(e)e.remove();}
-function busStats(id){const s=sd.data[id]||{};let a=0,r=0,mA=0,mR=0;for(let i=1;i<=TOTAL;i++){const x=s[i];if(!x)continue;if(x.status==='anticipo'){a++;mA+=Number(x.amount)||0;}else if(x.status==='pagado'){r++;mR+=Number(x.amount)||0;}}return{a,r,libre:TOTAL-a-r,mA,mR};}
-function busIconSVG(){return`<svg width="48" height="48" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="14" width="48" height="36" rx="6" fill="#660812"/><rect x="12" y="10" width="40" height="8" rx="4" fill="#80c14b"/><rect x="11" y="20" width="18" height="12" rx="3" fill="#b3e0ff" opacity=".9"/><rect x="35" y="20" width="18" height="12" rx="3" fill="#b3e0ff" opacity=".9"/><rect x="14" y="35" width="8" height="7" rx="1" fill="white" opacity=".6"/><rect x="28" y="35" width="8" height="7" rx="1" fill="white" opacity=".6"/><rect x="42" y="35" width="8" height="7" rx="1" fill="white" opacity=".6"/><circle cx="18" cy="52" r="5" fill="#222"/><circle cx="18" cy="52" r="2.5" fill="#888"/><circle cx="46" cy="52" r="5" fill="#222"/><circle cx="46" cy="52" r="2.5" fill="#888"/></svg>`;}
-function driverSVG(){return`<svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4" fill="white"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="white"/></svg>`;}
-function wcSVG(){return`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="5" r="2" fill="#5f5e5a"/><circle cx="16" cy="5" r="2" fill="#5f5e5a"/><path d="M5 9h6v6H9v5H7v-5H5V9z" fill="#5f5e5a"/><path d="M14 9h5l-1.5 6H16l-1 5h-1l-1-5h-1.5L14 9z" fill="#5f5e5a"/></svg>`;}
 
+/* ── SVG ── */
+function bsvg(){return'<svg width="44" height="44" viewBox="0 0 64 64"><rect x="8" y="14" width="48" height="36" rx="6" fill="#660812"/><rect x="12" y="10" width="40" height="8" rx="4" fill="#80c14b"/><rect x="11" y="20" width="18" height="12" rx="3" fill="#b3e0ff" opacity=".9"/><rect x="35" y="20" width="18" height="12" rx="3" fill="#b3e0ff" opacity=".9"/><rect x="14" y="35" width="8" height="7" rx="1" fill="white" opacity=".6"/><rect x="28" y="35" width="8" height="7" rx="1" fill="white" opacity=".6"/><rect x="42" y="35" width="8" height="7" rx="1" fill="white" opacity=".6"/><circle cx="18" cy="52" r="5" fill="#222"/><circle cx="18" cy="52" r="2.5" fill="#888"/><circle cx="46" cy="52" r="5" fill="#222"/><circle cx="46" cy="52" r="2.5" fill="#888"/></svg>';}
+function dsvg(){return'<svg width="22" height="22" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="white"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" fill="white"/></svg>';}
+function wsvg(){return'<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="8" cy="5" r="2" fill="#5f5e5a"/><circle cx="16" cy="5" r="2" fill="#5f5e5a"/><path d="M5 9h6v6H9v5H7v-5H5V9z" fill="#5f5e5a"/><path d="M14 9h5l-1.5 6H16l-1 5h-1l-1-5h-1.5L14 9z" fill="#5f5e5a"/></svg>';}
+
+/* ── MENÚ PRINCIPAL ── */
 function renderMenu(){
-  const cards=BUSES.map(b=>{const st=busStats(b.id);return`<div class="bus-card" onclick="selBus('${b.id}')"><div class="bus-icon-wrap">${busIconSVG()}</div><div class="bus-grade">${b.label}</div><div class="bus-mini-stats"><span class="mini-badge badge-a">${st.a} anticipo</span><span class="mini-badge badge-r">${st.r} pagado</span><span class="mini-badge badge-l">${st.libre} libre</span></div></div>`;}).join('');
-  document.getElementById('app').innerHTML=`<div class="ev-banner"><div class="ev-title">DIA DEL NIÑO SPLASH 2026 | JMMR</div><div class="ev-sub">Selecciona un autobús</div></div><div class="menu-body"><div class="section-label">Autobuses</div><div class="bus-cards">${cards}</div></div>`;
+  const cards=config.buses.map(b=>{
+    const st=busStats(b.id);
+    return'<div class="bus-card" onclick="selBus(\''+b.id+'\')"><div class="bus-icon-wrap">'+bsvg()+'</div><div class="bus-grade">'+b.label+'</div><div class="bus-mini-stats"><span class="mini-badge badge-a">'+st.a+' anticipo</span><span class="mini-badge badge-r">'+st.r+' pagado</span><span class="mini-badge badge-l">'+st.libre+' libre</span></div></div>';
+  }).join('');
+  document.getElementById('app').innerHTML=
+    '<div class="ev-banner"><div><div class="ev-title">'+config.titulo+'</div><div class="ev-sub">'+config.subtitulo+'</div></div><button class="btn-config" onclick="openConfig()">⚙ Configurar</button></div>'+
+    '<div class="menu-body"><div class="section-label">Autobuses</div><div class="bus-cards">'+cards+'</div></div>';
 }
+
+/* ── CONFIGURACIÓN ── */
+function openConfig(){
+  cfgEdit={titulo:config.titulo,subtitulo:config.subtitulo,buses:config.buses.map(b=>({...b}))};
+  renderConfig();
+}
+function renderConfig(){
+  const busRows=cfgEdit.buses.map((b,i)=>
+    '<div class="bus-config-row">'+
+    '<span class="bus-config-num">'+(i+1)+'</span>'+
+    '<input class="bus-config-input" type="text" value="'+b.label+'" placeholder="Nombre del autobús" oninput="cfgEdit.buses['+i+'].label=this.value"/>'+
+    '<input class="bus-config-pin" type="text" maxlength="8" value="'+b.pin+'" placeholder="PIN" oninput="cfgEdit.buses['+i+'].pin=this.value"/>'+
+    (cfgEdit.buses.length>1?'<button class="btn-remove-bus" onclick="removeBus('+i+')">✕</button>':'<div style="width:32px"></div>')+
+    '</div>'
+  ).join('');
+
+  document.getElementById('app').innerHTML=
+    '<div class="ev-banner"><div><div class="ev-title">Configuración</div></div></div>'+
+    '<div class="config-wrap">'+
+      '<div class="config-section">'+
+        '<div class="config-section-title">Título del evento</div>'+
+        '<div class="config-field"><label>Nombre del evento</label><input type="text" value="'+cfgEdit.titulo+'" placeholder="Ej: Día del Niño Splash 2027" oninput="cfgEdit.titulo=this.value"/></div>'+
+        '<div class="config-field"><label>Subtítulo / Escuela</label><input type="text" value="'+cfgEdit.subtitulo+'" placeholder="Ej: Escuela JMMR" oninput="cfgEdit.subtitulo=this.value"/></div>'+
+      '</div>'+
+      '<div class="config-section">'+
+        '<div class="config-section-title">Autobuses</div>'+
+        '<div class="config-warning">⚠️ Si cambias el nombre o eliminas un autobús, los datos de ese autobús se conservan aunque no sean visibles. Si agregas uno nuevo empezará vacío.</div>'+
+        '<div class="config-pin-hint">Columna derecha = PIN de acceso del maestro</div>'+
+        busRows+
+        '<button class="btn-add-bus" onclick="addBus()">+ Agregar autobús</button>'+
+      '</div>'+
+      '<button class="btn-save-config" onclick="saveConfig()">Guardar cambios</button>'+
+      '<button class="btn-cancel-config" onclick="render()">Cancelar</button>'+
+    '</div>';
+}
+
+window.removeBus=function(i){if(cfgEdit.buses.length<=1)return;cfgEdit.buses.splice(i,1);renderConfig();}
+window.addBus=function(){
+  const newId='b'+Date.now();
+  cfgEdit.buses.push({id:newId,label:'Autobús '+(cfgEdit.buses.length+1),pin:'0000'});
+  renderConfig();
+  setTimeout(()=>{const inputs=document.querySelectorAll('.bus-config-input');if(inputs.length)inputs[inputs.length-1].focus();},80);
+}
+window.saveConfig=async function(){
+  if(!cfgEdit.titulo.trim()){alert('El título no puede estar vacío');return;}
+  cfgEdit.buses=cfgEdit.buses.filter(b=>b.label.trim());
+  if(!cfgEdit.buses.length){alert('Debe haber al menos un autobús');return;}
+  config.titulo=cfgEdit.titulo.trim();
+  config.subtitulo=cfgEdit.subtitulo.trim();
+  config.buses=cfgEdit.buses;
+  cfgEdit=null;
+  showL('Guardando...');await saveAll();hideL();render();
+}
+window.openConfig=openConfig;
+
+/* ── PIN ── */
 function renderPin(){
-  const b=BUSES.find(x=>x.id===sd.activeBus);
-  document.getElementById('app').innerHTML=`<div class="ev-banner"><div class="ev-title">DIA DEL NIÑO SPLASH 2026</div></div><div style="padding:2rem 1rem"><div class="pin-wrap"><div class="pin-title">Acceso — ${b.label}</div><div class="pin-sub">Ingresa el PIN del maestro para editar</div><input class="pin-input" type="password" inputmode="numeric" maxlength="6" id="pf" placeholder="••••" oninput="sd.pinInput=this.value;document.getElementById('pe').textContent=''" onkeydown="if(event.key==='Enter')doPin()"/><div class="pin-error" id="pe">${sd.pinError}</div><div class="pin-btns"><button class="btn-green" onclick="doPin()">Entrar</button><button class="btn-red" onclick="doView()">Acceso al Público General</button><button class="btn-ghost" onclick="goMenu()">Cancelar</button></div></div></div>`;
+  const b=config.buses.find(x=>x.id===sd.activeBus);
+  document.getElementById('app').innerHTML=
+    '<div class="ev-banner"><div><div class="ev-title">'+config.titulo+'</div></div></div>'+
+    '<div style="padding:2rem 1rem"><div class="pin-wrap">'+
+    '<div class="pin-title">Acceso — '+b.label+'</div>'+
+    '<div class="pin-sub">Ingresa el PIN del maestro para editar</div>'+
+    '<input class="pin-input" type="password" inputmode="numeric" maxlength="8" id="pf" placeholder="••••" oninput="sd.pinInput=this.value;document.getElementById(\'pe\').textContent=\'\'" onkeydown="if(event.key===\'Enter\')doPin()"/>'+
+    '<div class="pin-error" id="pe">'+sd.pinError+'</div>'+
+    '<div class="pin-btns">'+
+    '<button class="btn-green" onclick="doPin()">Entrar</button>'+
+    '<button class="btn-red-full" onclick="doView()">Acceso al Público General</button>'+
+    '<button class="btn-ghost" onclick="goMenu()">Cancelar</button>'+
+    '</div></div></div>';
   setTimeout(()=>{const f=document.getElementById('pf');if(f)f.focus();},50);
 }
+
+/* ── ASIENTO HTML ── */
 function sh(num,ed){
-  if(!num)return'<div style="min-height:36px"></div>';
-  const s=(sd.data[sd.activeBus]||{})[num];
-  const cls=s?s.status:'';
-  const ro=ed?'':' readonly';
-  const cl=ed?`onclick="openM(${num})"`:'';
-  let inner=s&&s.name?`<span class="sname">${s.name.toUpperCase()}</span>${s.obs?'<span class="sobs">'+s.obs.charAt(0).toUpperCase()+s.obs.slice(1)+'</span>':''}`:`<span class="snum">${num}</span>`;
-  return`<div class="seat ${cls}${ro}" ${cl}>${inner}</div>`;
+  if(!num)return'<div style="min-height:40px"></div>';
+  const s=(data[sd.activeBus]||{})[num];
+  const cls=s?s.status:'',ro=ed?'':' readonly',cl=ed?'onclick="openM('+num+')"':'';
+  const inner=s&&s.name
+    ?'<span class="seat-corner-num">'+num+'</span><div class="seat-inner"><span class="sname">'+s.name.toUpperCase()+'</span>'+(s.obs?'<span class="sobs">'+s.obs.charAt(0).toUpperCase()+s.obs.slice(1)+'</span>':'')+'</div>'
+    :'<div class="seat-inner"><span class="seat-num-empty">'+num+'</span></div>';
+  return'<div class="seat '+cls+ro+'" '+cl+'>'+inner+'</div>';
 }
+
+/* ── BUS VIEW ── */
 function renderBus(ed){
-  const b=BUSES.find(x=>x.id===sd.activeBus);
-  const st=busStats(sd.activeBus);
+  const b=config.buses.find(x=>x.id===sd.activeBus),st=busStats(sd.activeBus);
   let rows='';
   for(let r=0;r<11;r++){
-    const l1=r*4+1,l2=r*4+2,r1=r*4+3,r2=r*4+4;
-    if(l1>44)break;
-    if(r===0){rows+=`<div class="access-row"><div class="access-empty"></div><div class="access-empty"></div><div style="width:10px"></div><div class="access-empty"></div><div class="access-cell">▼ ACCESO</div></div>`;}
-    rows+=`<div class="seat-row">${sh(l1,ed)}${sh(l2,ed)}<div style="width:10px"></div>${sh(r1,ed)}${sh(r2,ed)}</div>`;
-    if(r===3)rows+=`<div class="exit-mid">salida izquierda →</div>`;
-    if(r===6)rows+=`<div class="exit-mid" style="text-align:right">← salida derecha</div>`;
+    const l1=r*4+1,l2=r*4+2,r1=r*4+3,r2=r*4+4;if(l1>44)break;
+    if(r===0)rows+='<div class="access-row"><div class="access-empty"></div><div class="access-empty"></div><div style="width:10px"></div><div class="access-empty"></div><div class="access-cell">▼ ACCESO</div></div>';
+    rows+='<div class="seat-row">'+sh(l1,ed)+sh(l2,ed)+'<div style="width:10px"></div>'+sh(r1,ed)+sh(r2,ed)+'</div>';
+    if(r===3)rows+='<div class="exit-mid">salida izquierda →</div>';
+    if(r===6)rows+='<div class="exit-mid" style="text-align:right">← salida derecha</div>';
   }
-  rows+=`<div class="seat-row">${sh(45,ed)}${sh(46,ed)}<div style="width:10px"></div><div style="min-height:36px"></div><div style="min-height:36px"></div></div>`;
-  document.getElementById('app').innerHTML=`<div>
-    <div class="bus-header">
-      <button class="back-btn" onclick="goMenu()">← Menú</button>
-      <div class="bus-name">DIA DEL NIÑO SPLASH 2026 — ${b.label}</div>
-    </div>
-    <div class="sync-bar"><span class="sdot ok" id="sdot"></span><span id="slbl">Sincronizado en la nube</span></div>
-    <div class="stats-row"><span class="stat-pill sp-a">${st.a} anticipo</span><span class="stat-pill sp-r">${st.r} pagado</span><span class="stat-pill sp-l">${st.libre} libre</span></div>
-    <div class="bus-body"><div class="seats-section"><div class="bus-layout">
-      <div class="driver-row"><div class="driver-seat">${driverSVG()}</div><span class="driver-label">Conductor</span><span class="frigobar-label">FRIGOBAR</span></div>
-      ${rows}
-      <div class="wc-bar">${wcSVG()} Sanitarios / WC</div>
-    </div>
-    ${!ed?'<div class="ro-notice">Modo solo lectura</div>':''}
-    <div class="legend"><div class="leg"><div class="leg-dot" style="background:#80c14b"></div>Anticipo</div><div class="leg"><div class="leg-dot" style="background:#85B7EB"></div>Pagado</div><div class="leg"><div class="leg-dot" style="background:#ccc"></div>Libre</div></div>
-    <div class="money-row"><div class="mi">Anticipo cobrado: <span class="mv">$${st.mA.toLocaleString()}</span></div><div class="mi">Total pagado: <span class="mv" style="color:#185FA5">$${st.mR.toLocaleString()}</span></div></div>
-    </div></div></div>`;
+  rows+='<div class="seat-row">'+sh(45,ed)+sh(46,ed)+'<div style="width:10px"></div><div style="min-height:40px"></div><div style="min-height:40px"></div></div>';
+  document.getElementById('app').innerHTML=
+    '<div><div class="bus-header">'+
+    '<button class="back-btn" onclick="goMenu()">← Menú</button>'+
+    '<div class="bus-name-hdr">'+config.titulo+' — '+b.label+'</div>'+
+    '<button class="list-btn" onclick="showList()">📋 Listado</button>'+
+    '</div>'+
+    '<div class="sync-bar"><span class="sdot ok" id="sdot"></span><span id="slbl">Guardado en la nube</span></div>'+
+    '<div class="stats-row"><span class="stat-pill sp-a">'+st.a+' anticipo</span><span class="stat-pill sp-r">'+st.r+' pagado</span><span class="stat-pill sp-l">'+st.libre+' libre</span></div>'+
+    '<div class="bus-body"><div class="seats-section"><div class="bus-layout">'+
+    '<div class="driver-row"><div class="driver-seat">'+dsvg()+'</div><span class="driver-label">Conductor</span><span class="frigobar-label">FRIGOBAR</span></div>'+
+    rows+
+    '<div class="wc-bar">'+wsvg()+' Sanitarios / WC</div>'+
+    '</div>'+(!ed?'<div class="ro-notice">Modo solo lectura</div>':'')+
+    '<div class="legend"><div class="leg"><div class="leg-dot" style="background:#80c14b"></div>Anticipo</div><div class="leg"><div class="leg-dot" style="background:#85B7EB"></div>Pagado</div><div class="leg"><div class="leg-dot" style="background:#ccc"></div>Libre</div></div>'+
+    '<div class="money-row"><div class="mi">Anticipo cobrado: <span class="mv">$'+st.mA.toLocaleString()+'</span></div><div class="mi">Total pagado: <span class="mv" style="color:#185FA5">$'+st.mR.toLocaleString()+'</span></div></div>'+
+    '</div></div></div>';
+}
+
+/* ── MODAL ASIENTO ── */
+function getNames(){
+  const seats=data[sd.activeBus]||{},map={};
+  for(let i=1;i<=TOTAL;i++){const s=seats[i];if(!s||!s.name)continue;const k=s.name.trim().toUpperCase();if(!map[k])map[k]={name:s.name.trim(),obs:s.obs||'',amount:s.amount||0,status:s.status,asientos:[]};map[k].asientos.push(i);}
+  return map;
+}
+function buildModal(){
+  const seats=data[sd.activeBus]||{},s=seats[mNum]||{name:'',amount:'',obs:'',status:'libre'};
+  const esc=v=>(v||'').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+  let picker='';
+  for(let i=1;i<=TOTAL;i++){
+    if(i===mNum){picker+='<div class="sp-seat current">'+i+'</div>';continue;}
+    if(seats[i]&&seats[i].name){picker+='<div class="sp-seat taken" title="'+esc(seats[i].name)+'">'+i+'</div>';continue;}
+    picker+='<div class="sp-seat'+(mExtra.includes(i)?' xsel':'')+'" onclick="tglExtra('+i+')">'+i+'</div>';
+  }
+  const totalSeats=1+mExtra.length;
+  const hint=mExtra.length?'✓ También se asignarán: '+mExtra.join(', '):'Toca los asientos libres para asignarlos también';
+  return'<div class="modal" onclick="event.stopPropagation()"><div class="mhandle"></div><h3>Asiento '+mNum+(mExtra.length?' + '+mExtra.length+' más':'')+'</h3>'+
+    '<div class="field" id="nf"><label>Nombre del pasajero</label><input id="mn" type="text" autocomplete="off" value="'+esc(s.name)+'" placeholder="Nombre completo" oninput="onNI(this.value)" onfocus="onNI(this.value)"/><div id="acb"></div></div>'+
+    '<div id="exb"></div>'+
+    '<div class="field"><label>Observaciones</label><textarea id="mo" placeholder="Notas, alergias, detalles...">'+esc(s.obs)+'</textarea></div>'+
+    '<div class="field"><label>Monto ($)</label><input id="ma" type="number" inputmode="decimal" value="'+(s.amount||'')+'" placeholder="0" min="0"/></div>'+
+    '<div class="field"><label>Estado de pago</label><div class="radio-group">'+
+    '<div class="rbtn'+(mStatus==='anticipo'?' a-anticipo':'')+'" onclick="setMS(\'anticipo\',this)">Anticipo</div>'+
+    '<div class="rbtn'+(mStatus==='pagado'?' a-pagado':'')+'" onclick="setMS(\'pagado\',this)">Pagado</div>'+
+    '<div class="rbtn'+(mStatus==='libre'?' a-libre':'')+'" onclick="setMS(\'libre\',this)">Libre</div>'+
+    '</div></div>'+
+    '<div class="field"><label>¿Ocupa más asientos? Selecciónalos</label><div class="multi-section"><div class="seats-picker">'+picker+'</div><div class="multi-hint">'+hint+'</div></div></div>'+
+    '<div class="btn-row"><button class="bsave" onclick="saveM()">Guardar'+(totalSeats>1?' ('+totalSeats+' asientos)':'')+'</button><button class="bclr" onclick="clearS()">Limpiar</button><button class="bcancel" onclick="closeM()">Cancelar</button></div></div>';
 }
 function openM(num){
-  const s=(sd.data[sd.activeBus]||{})[num]||{name:'',amount:'',obs:'',status:'libre'};
-  window._ms=s.status||'libre';
-  const esc=v=>(v||'').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-  const ov=document.createElement('div');ov.className='modal-overlay';ov.id='mov';
-  ov.innerHTML=`<div class="modal" onclick="event.stopPropagation()"><div class="mhandle"></div><h3>Asiento ${num}</h3><div class="field"><label>Nombre del pasajero</label><input id="mn" type="text" autocomplete="off" value="${esc(s.name)}" placeholder="Nombre completo"/></div><div class="field"><label>Observaciones</label><textarea id="mo" placeholder="Notas, alergias, detalles...">${esc(s.obs)}</textarea></div><div class="field"><label>Monto ($)</label><input id="ma" type="number" inputmode="decimal" value="${s.amount||''}" placeholder="0" min="0"/></div><div class="field"><label>Estado de pago</label><div class="radio-group"><div class="rbtn ${s.status==='anticipo'?'a-anticipo':''}" onclick="setMS('anticipo',this)">Anticipo</div><div class="rbtn ${s.status==='pagado'?'a-pagado':''}" onclick="setMS('pagado',this)">Pagado</div><div class="rbtn ${s.status==='libre'?'a-libre':''}" onclick="setMS('libre',this)">Libre</div></div></div><div class="btn-row"><button class="bsave" onclick="saveM(${num})">Guardar</button><button class="bclr" onclick="clearS(${num})">Limpiar</button><button class="bcancel" onclick="closeM()">Cancelar</button></div></div>`;
-  ov.addEventListener('click',closeM);document.body.appendChild(ov);
+  mNum=num;mExtra=[];
+  const s=(data[sd.activeBus]||{})[num]||{};mStatus=s.status||'libre';
+  let ov=document.getElementById('mov');
+  if(!ov){ov=document.createElement('div');ov.className='modal-overlay';ov.id='mov';ov.addEventListener('click',e=>{if(e.target===ov)closeM();});document.body.appendChild(ov);}
+  ov.innerHTML=buildModal();
   setTimeout(()=>{const f=document.getElementById('mn');if(f)f.focus();},80);
 }
+window.tglExtra=function(n){const idx=mExtra.indexOf(n);if(idx>=0)mExtra.splice(idx,1);else mExtra.push(n);const ov=document.getElementById('mov');if(ov)ov.innerHTML=buildModal();}
+window.onNI=function(val){
+  const box=document.getElementById('acb'),banner=document.getElementById('exb');if(!box||!banner)return;
+  const names=getNames(),q=val.trim().toUpperCase();
+  if(!q){box.innerHTML='';banner.innerHTML='';return;}
+  const matches=Object.values(names).filter(p=>p.name.toUpperCase().includes(q)&&!p.asientos.includes(mNum));
+  box.innerHTML=matches.length?'<div class="autocomplete-box">'+matches.slice(0,4).map(p=>'<div class="autocomplete-item" onclick="fillFrom(\''+p.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')">'+'<div class="autocomplete-name">'+p.name+'</div><div class="autocomplete-info">Asiento'+(p.asientos.length>1?'s':'')+': '+p.asientos.join(', ')+' · '+(p.status==='anticipo'?'Anticipo':'Pagado')+' · $'+p.amount+'</div></div>').join('')+'</div>':'';
+  const exact=names[q];
+  banner.innerHTML=exact&&!exact.asientos.includes(mNum)?'<div class="existing-banner"><div class="existing-text"><strong>💡 '+exact.name+' ya tiene asiento'+(exact.asientos.length>1?'s':'')+': '+exact.asientos.join(', ')+'</strong>¿Copiar sus datos al asiento '+mNum+'?</div><button class="btn-copy" onclick="fillFrom(\''+exact.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')" >Copiar</button></div>':'';
+}
+window.fillFrom=function(name){
+  const p=getNames()[name.toUpperCase()];if(!p)return;
+  const mn=document.getElementById('mn'),mo=document.getElementById('mo'),ma=document.getElementById('ma');
+  if(mn)mn.value=p.name;if(mo)mo.value=p.obs||'';if(ma)ma.value=p.amount||'';
+  mStatus=p.status;
+  document.querySelectorAll('.rbtn').forEach((b,i)=>{b.className='rbtn';if((i===0&&p.status==='anticipo')||(i===1&&p.status==='pagado')||(i===2&&p.status==='libre'))b.className='rbtn a-'+p.status;});
+  const box=document.getElementById('acb');if(box)box.innerHTML='';
+  const banner=document.getElementById('exb');if(banner)banner.innerHTML='';
+}
+window.setMS=function(v,el){mStatus=v;document.querySelectorAll('.rbtn').forEach(b=>b.className='rbtn');el.className='rbtn a-'+v;}
+window.saveM=async function(){
+  const name=document.getElementById('mn').value.trim(),obs=document.getElementById('mo').value.trim(),amount=parseFloat(document.getElementById('ma').value)||0,status=mStatus||'libre';
+  if(!data[sd.activeBus])data[sd.activeBus]={};
+  [mNum,...mExtra].forEach(n=>{if(status==='libre')delete data[sd.activeBus][n];else data[sd.activeBus][n]={name,obs,amount,status};});
+  closeM();renderBus(true);setSync('loading');await saveAll();setSync('ok');
+}
+window.clearS=async function(){if(data[sd.activeBus])delete data[sd.activeBus][mNum];closeM();renderBus(true);await saveAll();}
+window.closeM=function(){const o=document.getElementById('mov');if(o)o.remove();mExtra=[];}
+
+/* ── LISTADO ── */
+function showList(){
+  const seats=data[sd.activeBus]||{},b=config.buses.find(x=>x.id===sd.activeBus),map={};
+  for(let i=1;i<=TOTAL;i++){const s=seats[i];if(!s||!s.name)continue;const k=s.name.trim().toUpperCase();if(!map[k]){map[k]={name:s.name.trim(),asientos:[]};}map[k].asientos.push(i);}
+  const lista=Object.values(map).sort((a,bx)=>a.name.localeCompare(bx.name,'es'));
+  if(!lista.length){document.getElementById('app').innerHTML='<div><div class="bus-header"><button class="back-btn" onclick="renderBus('+sd.auth+')">← Volver</button><div class="bus-name-hdr">'+b.label+' — Listado</div></div><div class="list-empty">No hay pasajeros registrados aún</div></div>';return;}
+  const rows=lista.map((p,i)=>'<div class="passenger-row"><span class="passenger-num">'+(i+1)+'.</span><span class="passenger-name">'+p.name+'</span><div class="passenger-line"></div><span class="passenger-asientos">Asiento'+(p.asientos.length>1?'s':'')+': '+p.asientos.join(', ')+'</span></div>').join('');
+  document.getElementById('app').innerHTML='<div><div class="bus-header"><button class="back-btn" onclick="renderBus('+sd.auth+')">← Volver</button><div class="bus-name-hdr">'+b.label+' — Listado</div><button class="list-btn" onclick="window.print()">🖨 Imprimir</button></div><div class="list-wrap"><div class="list-title">Listado de pasajeros</div><div class="list-sub">'+config.titulo+' — '+b.label+' · '+lista.length+' pasajero'+(lista.length!==1?'s':'')+'</div>'+rows+'</div></div>';
+}
+
+/* ── NAVEGACIÓN ── */
 function render(){if(sd.screen==='menu')renderMenu();else if(sd.screen==='pin')renderPin();else if(sd.screen==='bus')renderBus(sd.auth);}
-function startPolling(){clearInterval(window._pt);window._pt=setInterval(async()=>{if(sd.screen!=='bus'||document.getElementById('mov'))return;const id=sd.activeBus;await fetchBus(id);if(sd.screen==='bus'&&sd.activeBus===id)renderBus(sd.auth);},15000);}
 window.selBus=function(id){sd.activeBus=id;sd.pinInput='';sd.pinError='';sd.auth=false;sd.screen='pin';render();}
-window.goMenu=function(){clearInterval(window._pt);sd.screen='menu';sd.auth=false;sd.activeBus=null;render();}
-window.doView=async function(){showL('Cargando asientos...');await fetchBus(sd.activeBus);hideL();sd.auth=false;sd.screen='bus';render();startPolling();}
-window.doPin=async function(){const b=BUSES.find(x=>x.id===sd.activeBus);if(sd.pinInput===b.pin){showL('Cargando asientos...');await fetchBus(sd.activeBus);hideL();sd.auth=true;sd.screen='bus';render();startPolling();}else{document.getElementById('pe').textContent='PIN incorrecto. Intenta de nuevo.';}}
-window.setMS=function(v,el){window._ms=v;document.querySelectorAll('.rbtn').forEach(b=>b.className='rbtn');el.className='rbtn a-'+v;}
-window.saveM=async function(num){const name=document.getElementById('mn').value.trim();const obs=document.getElementById('mo').value.trim();const amount=parseFloat(document.getElementById('ma').value)||0;const status=window._ms||'libre';if(!sd.data[sd.activeBus])sd.data[sd.activeBus]={};if(status==='libre')delete sd.data[sd.activeBus][num];else sd.data[sd.activeBus][num]={name,obs,amount,status};closeM();renderBus(true);await pushBus(sd.activeBus);}
-window.clearS=async function(num){if(sd.data[sd.activeBus])delete sd.data[sd.activeBus][num];closeM();renderBus(true);await pushBus(sd.activeBus);}
-window.closeM=function(){const o=document.getElementById('mov');if(o)o.remove();}
-async function init(){showL('Conectando con la nube...');await Promise.all(BUSES.map(b=>fetchBus(b.id)));hideL();render();}
+window.goMenu=function(){sd.screen='menu';sd.auth=false;sd.activeBus=null;render();}
+window.doView=function(){sd.auth=false;sd.screen='bus';render();}
+window.doPin=function(){
+  const b=config.buses.find(x=>x.id===sd.activeBus);
+  if(sd.pinInput===b.pin){sd.auth=true;sd.screen='bus';render();}
+  else{document.getElementById('pe').textContent='PIN incorrecto. Intenta de nuevo.';}
+}
+window.openM=openM;window.showList=showList;
+
+async function init(){
+  showL('Cargando...');
+  await loadConfig();
+  hideL();render();
+}
 init();
 </script>
-</body>
-</html>
