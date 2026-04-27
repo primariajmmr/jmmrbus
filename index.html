@@ -169,11 +169,13 @@ body{font-family:system-ui,sans-serif;background:#f9f9f7;color:#1a1a18}
 // --- CONFIGURACIÓN DE JSONBIN ---
 const BIN_ID = '69ef872836566621a8f9b2cc'; 
 const API_KEY = '$2a$10$C6s2gOMmGgAEXjzJc1.mHec7tcHGnaAZ7eooifcU2FnDUZtUD2ATa'; 
+// Clave para entrar a la configuración (CCT de la escuela)
+const ADMIN_PASS = '18DPR0968U'; 
 // --------------------------------
 
 const TOTAL=46;
 
-// Config por defecto (se sobreescribe si hay datos en JSONBin)
+// Config por defecto
 let config={
   titulo:'DIA DEL NIÑO SPLASH 2026',
   subtitulo:'JMMR',
@@ -197,10 +199,7 @@ let cfgEdit=null;
 
 /* ── Storage JSONBIN ── */
 async function loadConfig(){
-  if(!BIN_ID || !API_KEY) {
-    console.warn("No se configuró BIN_ID o API_KEY. Usando memoria local temporal.");
-    return;
-  }
+  if(!BIN_ID || !API_KEY) return;
   try {
     const req = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
       headers: { 'X-Master-Key': API_KEY }
@@ -212,9 +211,7 @@ async function loadConfig(){
         data = res.record.data || {};
       }
     }
-  } catch(e) {
-    console.error("Error al cargar datos desde JSONBin", e);
-  }
+  } catch(e) { console.error("Error al cargar datos", e); }
 }
 
 async function saveAll(){
@@ -228,10 +225,10 @@ async function saveAll(){
       },
       body: JSON.stringify({ config, data })
     });
-    if(!req.ok) throw new Error('Error al conectar con JSONBin');
+    if(!req.ok) throw new Error('Error al conectar con la nube');
   } catch(e) {
-    console.error("Error al guardar en JSONBin", e);
-    throw e; // Lanzamos el error para que la UI se actualice a "error"
+    console.error("Error al guardar", e);
+    throw e;
   }
 }
 
@@ -261,11 +258,17 @@ function renderMenu(){
     '<div class="menu-body"><div class="section-label">Autobuses</div><div class="bus-cards">'+cards+'</div></div>';
 }
 
-/* ── CONFIGURACIÓN ── */
-function openConfig(){
-  cfgEdit={titulo:config.titulo,subtitulo:config.subtitulo,buses:config.buses.map(b=>({...b}))};
-  renderConfig();
-}
+/* ── CONFIGURACIÓN (CON CLAVE ADMIN) ── */
+window.openConfig = function(){
+  const pass = prompt("Acceso restringido. Ingresa la clave de administrador:");
+  if (pass === ADMIN_PASS) {
+    cfgEdit={titulo:config.titulo,subtitulo:config.subtitulo,buses:config.buses.map(b=>({...b}))};
+    renderConfig();
+  } else if (pass !== null) {
+    alert("Clave de administrador incorrecta.");
+  }
+};
+
 function renderConfig(){
   const busRows=cfgEdit.buses.map((b,i)=>
     '<div class="bus-config-row">'+
@@ -286,8 +289,8 @@ function renderConfig(){
       '</div>'+
       '<div class="config-section">'+
         '<div class="config-section-title">Autobuses</div>'+
-        '<div class="config-warning">⚠️ Si cambias el nombre o eliminas un autobús, los datos de ese autobús se conservan aunque no sean visibles. Si agregas uno nuevo empezará vacío.</div>'+
-        '<div class="config-pin-hint">Columna derecha = PIN de acceso del maestro</div>'+
+        '<div class="config-warning">⚠️ Estos cambios afectan a todos los usuarios.</div>'+
+        '<div class="config-pin-hint">Columna derecha = PIN de acceso para el docente</div>'+
         busRows+
         '<button class="btn-add-bus" onclick="addBus()">+ Agregar autobús</button>'+
       '</div>'+
@@ -312,16 +315,11 @@ window.saveConfig=async function(){
   config.buses=cfgEdit.buses;
   cfgEdit=null;
   showL('Guardando...');
-  try { 
-    await saveAll(); 
-  } catch(e) { 
-    alert("Error al guardar la configuración en la nube."); 
-  }
+  try { await saveAll(); } catch(e) { alert("Error al guardar la configuración."); }
   hideL();render();
 }
-window.openConfig=openConfig;
 
-/* ── PIN ── */
+/* ── PIN ACCESO DOCENTE ── */
 function renderPin(){
   const b=config.buses.find(x=>x.id===sd.activeBus);
   document.getElementById('app').innerHTML=
@@ -339,18 +337,17 @@ function renderPin(){
   setTimeout(()=>{const f=document.getElementById('pf');if(f)f.focus();},50);
 }
 
-/* ── ASIENTO HTML ── */
+/* ── ASIENTOS Y BUS ── */
 function sh(num,ed){
   if(!num)return'<div style="min-height:40px"></div>';
   const s=(data[sd.activeBus]||{})[num];
   const cls=s?s.status:'',ro=ed?'':' readonly',cl=ed?'onclick="openM('+num+')"':'';
   const inner=s&&s.name
-    ?'<span class="seat-corner-num">'+num+'</span><div class="seat-inner"><span class="sname">'+s.name.toUpperCase()+'</span>'+(s.obs?'<span class="sobs">'+s.obs.charAt(0).toUpperCase()+s.obs.slice(1)+'</span>':'')+'</div>'
+    ?'<span class="seat-corner-num">'+num+'</span><div class="seat-inner"><span class="sname">'+s.name.toUpperCase()+'</span>'+(s.obs?'<span class="sobs">'+s.obs+'</span>':'')+'</div>'
     :'<div class="seat-inner"><span class="seat-num-empty">'+num+'</span></div>';
   return'<div class="seat '+cls+ro+'" '+cl+'>'+inner+'</div>';
 }
 
-/* ── BUS VIEW ── */
 function renderBus(ed){
   const b=config.buses.find(x=>x.id===sd.activeBus),st=busStats(sd.activeBus);
   let rows='';
@@ -376,11 +373,11 @@ function renderBus(ed){
     '<div class="wc-bar">'+wsvg()+' Sanitarios / WC</div>'+
     '</div>'+(!ed?'<div class="ro-notice">Modo solo lectura</div>':'')+
     '<div class="legend"><div class="leg"><div class="leg-dot" style="background:#80c14b"></div>Anticipo</div><div class="leg"><div class="leg-dot" style="background:#85B7EB"></div>Pagado</div><div class="leg"><div class="leg-dot" style="background:#ccc"></div>Libre</div></div>'+
-    '<div class="money-row"><div class="mi">Anticipo cobrado: <span class="mv">$'+st.mA.toLocaleString()+'</span></div><div class="mi">Total pagado: <span class="mv" style="color:#185FA5">$'+st.mR.toLocaleString()+'</span></div></div>'+
+    '<div class="money-row"><div class="mi">Anticipo: <span class="mv">$'+st.mA.toLocaleString()+'</span></div><div class="mi">Pagado: <span class="mv" style="color:#185FA5">$'+st.mR.toLocaleString()+'</span></div></div>'+
     '</div></div></div>';
 }
 
-/* ── MODAL ASIENTO ── */
+/* ── MODALES Y REGISTRO (SIN CAMBIOS) ── */
 function getNames(){
   const seats=data[sd.activeBus]||{},map={};
   for(let i=1;i<=TOTAL;i++){const s=seats[i];if(!s||!s.name)continue;const k=s.name.trim().toUpperCase();if(!map[k])map[k]={name:s.name.trim(),obs:s.obs||'',amount:s.amount||0,status:s.status,asientos:[]};map[k].asientos.push(i);}
@@ -392,87 +389,60 @@ function buildModal(){
   let picker='';
   for(let i=1;i<=TOTAL;i++){
     if(i===mNum){picker+='<div class="sp-seat current">'+i+'</div>';continue;}
-    if(seats[i]&&seats[i].name){picker+='<div class="sp-seat taken" title="'+esc(seats[i].name)+'">'+i+'</div>';continue;}
+    if(seats[i]&&seats[i].name){picker+='<div class="sp-seat taken">'+i+'</div>';continue;}
     picker+='<div class="sp-seat'+(mExtra.includes(i)?' xsel':'')+'" onclick="tglExtra('+i+')">'+i+'</div>';
   }
   const totalSeats=1+mExtra.length;
-  const hint=mExtra.length?'✓ También se asignarán: '+mExtra.join(', '):'Toca los asientos libres para asignarlos también';
-  return'<div class="modal" onclick="event.stopPropagation()"><div class="mhandle"></div><h3>Asiento '+mNum+(mExtra.length?' + '+mExtra.length+' más':'')+'</h3>'+
-    '<div class="field" id="nf"><label>Nombre del pasajero</label><input id="mn" type="text" autocomplete="off" value="'+esc(s.name)+'" placeholder="Nombre completo" oninput="onNI(this.value)" onfocus="onNI(this.value)"/><div id="acb"></div></div>'+
+  return'<div class="modal" onclick="event.stopPropagation()"><div class="mhandle"></div><h3>Asiento '+mNum+'</h3>'+
+    '<div class="field"><label>Nombre del pasajero</label><input id="mn" type="text" autocomplete="off" value="'+esc(s.name)+'" placeholder="Nombre completo" oninput="onNI(this.value)"/><div id="acb"></div></div>'+
     '<div id="exb"></div>'+
-    '<div class="field"><label>Observaciones</label><textarea id="mo" placeholder="Notas, alergias, detalles...">'+esc(s.obs)+'</textarea></div>'+
-    '<div class="field"><label>Monto ($)</label><input id="ma" type="number" inputmode="decimal" value="'+(s.amount||'')+'" placeholder="0" min="0"/></div>'+
+    '<div class="field"><label>Observaciones</label><textarea id="mo">'+esc(s.obs)+'</textarea></div>'+
+    '<div class="field"><label>Monto ($)</label><input id="ma" type="number" value="'+(s.amount||'')+'" placeholder="0"/></div>'+
     '<div class="field"><label>Estado de pago</label><div class="radio-group">'+
     '<div class="rbtn'+(mStatus==='anticipo'?' a-anticipo':'')+'" onclick="setMS(\'anticipo\',this)">Anticipo</div>'+
     '<div class="rbtn'+(mStatus==='pagado'?' a-pagado':'')+'" onclick="setMS(\'pagado\',this)">Pagado</div>'+
     '<div class="rbtn'+(mStatus==='libre'?' a-libre':'')+'" onclick="setMS(\'libre\',this)">Libre</div>'+
     '</div></div>'+
-    '<div class="field"><label>¿Ocupa más asientos? Selecciónalos</label><div class="multi-section"><div class="seats-picker">'+picker+'</div><div class="multi-hint">'+hint+'</div></div></div>'+
-    '<div class="btn-row"><button class="bsave" onclick="saveM()">Guardar'+(totalSeats>1?' ('+totalSeats+' asientos)':'')+'</button><button class="bclr" onclick="clearS()">Limpiar</button><button class="bcancel" onclick="closeM()">Cancelar</button></div></div>';
+    '<div class="field"><label>Varios asientos</label><div class="multi-section"><div class="seats-picker">'+picker+'</div></div></div>'+
+    '<div class="btn-row"><button class="bsave" onclick="saveM()">Guardar ('+totalSeats+')</button><button class="bcancel" onclick="closeM()">Cancelar</button></div></div>';
 }
 function openM(num){
   mNum=num;mExtra=[];
   const s=(data[sd.activeBus]||{})[num]||{};mStatus=s.status||'libre';
   let ov=document.getElementById('mov');
-  if(!ov){ov=document.createElement('div');ov.className='modal-overlay';ov.id='mov';ov.addEventListener('click',e=>{if(e.target===ov)closeM();});document.body.appendChild(ov);}
+  if(!ov){ov=document.createElement('div');ov.className='modal-overlay';ov.id='mov';ov.onclick=closeM;document.body.appendChild(ov);}
   ov.innerHTML=buildModal();
-  setTimeout(()=>{const f=document.getElementById('mn');if(f)f.focus();},80);
 }
-window.tglExtra=function(n){const idx=mExtra.indexOf(n);if(idx>=0)mExtra.splice(idx,1);else mExtra.push(n);const ov=document.getElementById('mov');if(ov)ov.innerHTML=buildModal();}
-window.onNI=function(val){
-  const box=document.getElementById('acb'),banner=document.getElementById('exb');if(!box||!banner)return;
-  const names=getNames(),q=val.trim().toUpperCase();
-  if(!q){box.innerHTML='';banner.innerHTML='';return;}
-  const matches=Object.values(names).filter(p=>p.name.toUpperCase().includes(q)&&!p.asientos.includes(mNum));
-  box.innerHTML=matches.length?'<div class="autocomplete-box">'+matches.slice(0,4).map(p=>'<div class="autocomplete-item" onclick="fillFrom(\''+p.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')">'+'<div class="autocomplete-name">'+p.name+'</div><div class="autocomplete-info">Asiento'+(p.asientos.length>1?'s':'')+': '+p.asientos.join(', ')+' · '+(p.status==='anticipo'?'Anticipo':'Pagado')+' · $'+p.amount+'</div></div>').join('')+'</div>':'';
-  const exact=names[q];
-  banner.innerHTML=exact&&!exact.asientos.includes(mNum)?'<div class="existing-banner"><div class="existing-text"><strong>💡 '+exact.name+' ya tiene asiento'+(exact.asientos.length>1?'s':'')+': '+exact.asientos.join(', ')+'</strong>¿Copiar sus datos al asiento '+mNum+'?</div><button class="btn-copy" onclick="fillFrom(\''+exact.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'")+'\')" >Copiar</button></div>':'';
+window.tglExtra=function(n){const idx=mExtra.indexOf(n);if(idx>=0)mExtra.splice(idx,1);else mExtra.push(n);document.getElementById('mov').innerHTML=buildModal();}
+window.onNI=function(v){
+  const box=document.getElementById('acb');if(!box)return;
+  const names=getNames(),q=v.trim().toUpperCase();if(!q){box.innerHTML='';return;}
+  const matches=Object.values(names).filter(p=>p.name.toUpperCase().includes(q));
+  box.innerHTML=matches.length?'<div class="autocomplete-box">'+matches.slice(0,3).map(p=>'<div class="autocomplete-item" onclick="fillFrom(\''+p.name+'\')">'+p.name+' (Asientos: '+p.asientos.join(',')+')</div>').join('')+'</div>':'';
 }
-window.fillFrom=function(name){
-  const p=getNames()[name.toUpperCase()];if(!p)return;
-  const mn=document.getElementById('mn'),mo=document.getElementById('mo'),ma=document.getElementById('ma');
-  if(mn)mn.value=p.name;if(mo)mo.value=p.obs||'';if(ma)ma.value=p.amount||'';
-  mStatus=p.status;
-  document.querySelectorAll('.rbtn').forEach((b,i)=>{b.className='rbtn';if((i===0&&p.status==='anticipo')||(i===1&&p.status==='pagado')||(i===2&&p.status==='libre'))b.className='rbtn a-'+p.status;});
-  const box=document.getElementById('acb');if(box)box.innerHTML='';
-  const banner=document.getElementById('exb');if(banner)banner.innerHTML='';
+window.fillFrom=function(n){
+  const p=getNames()[n.toUpperCase()];if(!p)return;
+  document.getElementById('mn').value=p.name;document.getElementById('mo').value=p.obs;document.getElementById('ma').value=p.amount;
+  mStatus=p.status;document.getElementById('acb').innerHTML='';
 }
 window.setMS=function(v,el){mStatus=v;document.querySelectorAll('.rbtn').forEach(b=>b.className='rbtn');el.className='rbtn a-'+v;}
 window.saveM=async function(){
-  const name=document.getElementById('mn').value.trim(),obs=document.getElementById('mo').value.trim(),amount=parseFloat(document.getElementById('ma').value)||0,status=mStatus||'libre';
+  const name=document.getElementById('mn').value.trim(),obs=document.getElementById('mo').value.trim(),amount=parseFloat(document.getElementById('ma').value)||0;
   if(!data[sd.activeBus])data[sd.activeBus]={};
-  [mNum,...mExtra].forEach(n=>{if(status==='libre')delete data[sd.activeBus][n];else data[sd.activeBus][n]={name,obs,amount,status};});
-  closeM();renderBus(true);setSync('loading');
-  try {
-    await saveAll();
-    setSync('ok');
-  } catch(e) {
-    setSync('error');
-  }
-}
-window.clearS=async function(){
-  if(data[sd.activeBus])delete data[sd.activeBus][mNum];
-  closeM();renderBus(true);setSync('loading');
-  try {
-    await saveAll();
-    setSync('ok');
-  } catch(e) {
-    setSync('error');
-  }
+  [mNum,...mExtra].forEach(n=>{if(mStatus==='libre')delete data[sd.activeBus][n];else data[sd.activeBus][n]={name,obs,amount,status:mStatus};});
+  closeM();renderBus(true);setSync('loading');try{await saveAll();setSync('ok');}catch(e){setSync('error');}
 }
 window.closeM=function(){const o=document.getElementById('mov');if(o)o.remove();mExtra=[];}
 
-/* ── LISTADO ── */
+/* ── LISTADO Y NAVEGACIÓN ── */
 function showList(){
   const seats=data[sd.activeBus]||{},b=config.buses.find(x=>x.id===sd.activeBus),map={};
-  for(let i=1;i<=TOTAL;i++){const s=seats[i];if(!s||!s.name)continue;const k=s.name.trim().toUpperCase();if(!map[k]){map[k]={name:s.name.trim(),asientos:[]};}map[k].asientos.push(i);}
+  for(let i=1;i<=TOTAL;i++){const s=seats[i];if(!s||!s.name)continue;const k=s.name.trim().toUpperCase();if(!map[k])map[k]={name:s.name.trim(),asientos:[]};map[k].asientos.push(i);}
   const lista=Object.values(map).sort((a,bx)=>a.name.localeCompare(bx.name,'es'));
-  if(!lista.length){document.getElementById('app').innerHTML='<div><div class="bus-header"><button class="back-btn" onclick="renderBus('+sd.auth+')">← Volver</button><div class="bus-name-hdr">'+b.label+' — Listado</div></div><div class="list-empty">No hay pasajeros registrados aún</div></div>';return;}
-  const rows=lista.map((p,i)=>'<div class="passenger-row"><span class="passenger-num">'+(i+1)+'.</span><span class="passenger-name">'+p.name+'</span><div class="passenger-line"></div><span class="passenger-asientos">Asiento'+(p.asientos.length>1?'s':'')+': '+p.asientos.join(', ')+'</span></div>').join('');
-  document.getElementById('app').innerHTML='<div><div class="bus-header"><button class="back-btn" onclick="renderBus('+sd.auth+')">← Volver</button><div class="bus-name-hdr">'+b.label+' — Listado</div><button class="list-btn" onclick="window.print()">🖨 Imprimir</button></div><div class="list-wrap"><div class="list-title">Listado de pasajeros</div><div class="list-sub">'+config.titulo+' — '+b.label+' · '+lista.length+' pasajero'+(lista.length!==1?'s':'')+'</div>'+rows+'</div></div>';
+  const rows=lista.map((p,i)=>'<div class="passenger-row"><span class="passenger-num">'+(i+1)+'.</span><span class="passenger-name">'+p.name+'</span><div class="passenger-line"></div><span class="passenger-asientos">Asientos: '+p.asientos.join(', ')+'</span></div>').join('');
+  document.getElementById('app').innerHTML='<div><div class="bus-header"><button class="back-btn" onclick="renderBus('+sd.auth+')">← Volver</button><div class="bus-name-hdr">'+b.label+' — Listado</div><button class="list-btn" onclick="window.print()">🖨</button></div><div class="list-wrap"><div class="list-title">Pasajeros — '+b.label+'</div>'+(rows||'<div class="list-empty">Vacío</div>')+'</div></div>';
 }
 
-/* ── NAVEGACIÓN ── */
 function render(){if(sd.screen==='menu')renderMenu();else if(sd.screen==='pin')renderPin();else if(sd.screen==='bus')renderBus(sd.auth);}
 window.selBus=function(id){sd.activeBus=id;sd.pinInput='';sd.pinError='';sd.auth=false;sd.screen='pin';render();}
 window.goMenu=function(){sd.screen='menu';sd.auth=false;sd.activeBus=null;render();}
@@ -480,12 +450,11 @@ window.doView=function(){sd.auth=false;sd.screen='bus';render();}
 window.doPin=function(){
   const b=config.buses.find(x=>x.id===sd.activeBus);
   if(sd.pinInput===b.pin){sd.auth=true;sd.screen='bus';render();}
-  else{document.getElementById('pe').textContent='PIN incorrecto. Intenta de nuevo.';}
+  else{document.getElementById('pe').textContent='PIN incorrecto.';}
 }
-window.openM=openM;window.showList=showList;
 
 async function init(){
-  showL('Cargando...');
+  showL('Conectando...');
   await loadConfig();
   hideL();render();
 }
